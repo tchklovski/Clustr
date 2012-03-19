@@ -46,9 +46,15 @@ bool extract_alpha_component (Mesh::component &c, Polygon &poly, bool verbose)
     Vertex_handle v0(*v);
     Ring ring;
 
-    do {
+    try{ 
+      do {
         ring.push_back(v->point());
-    } while (*(++v) != v0);
+      } while (*(++v) != v0);
+    }
+    catch (...){
+      cerr << "************** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+      cerr << "************** whoa caught exception, will maybe punt on this shape!" << endl;
+    };
 
     if (ring.size() < 4) {
         if (verbose) cerr << "Discarding degenerate shape." << endl;
